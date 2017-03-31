@@ -1,4 +1,19 @@
 {
+    "name": "arkitecht/revel-php-api",
+    "description": "PHP Wrapper for the Revel digital player API",
+    "keywords": [
+        "php",
+        "revel",
+        "API",
+        "arkitecht"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aaron Rubin",
+            "email": "aaron@arkitech.net"
+        }
+    ],
     "require": {
         "guzzlehttp/guzzle": "^6.2",
         "illuminate/support": "^5.2"
