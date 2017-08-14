@@ -1,4 +1,5 @@
 <?php
+
 namespace Arkitecht\RevelAPI;
 
 use Arkitecht\RevelAPI\Objects\Account;
@@ -17,7 +18,7 @@ class RevelAPI
     {
         $this->api_key = $api_key;
         $this->client = new GuzzleHttp\Client([
-            'base_uri' => $this->endpoint
+            'base_uri' => $this->endpoint,
         ]);
     }
 
@@ -39,14 +40,14 @@ class RevelAPI
     public function makeRequest($endpoint, $method = 'GET', $params = [], $headers = [], $json = [])
     {
         $default_headers = [
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
         ];
 
         $all_headers = array_merge($default_headers, $headers);
 
         $default_params = [
             //'format'  => 'json'
-            'api_key' => $this->api_key
+            'api_key' => $this->api_key,
         ];
 
         $all_params = array_merge($default_params, $params);
@@ -54,11 +55,16 @@ class RevelAPI
         $param_key = ($method == 'GET' || $json) ? 'query' : 'form_params';
 
 
-        $response = $this->client->request($method, $endpoint, [
+        $data = [
             'headers'  => $all_headers,
             $param_key => $all_params,
-            'json'     => $json
-        ]);
+        ];
+
+        if ($json) {
+            $data['json'] = $json;
+        }
+
+        $response = $this->client->request($method, $endpoint, $data);
 
         $this->last_response = $response;
 
